@@ -1,9 +1,9 @@
 
 from cmath import log
-from genericpath import exists
 
 
 def vetorinf(matriz_teste, KEY):
+    """4. vetor que será utilizado, KEY é a linha que será analisada"""
     aux = {}
     Y = ""
     for i in matriz_teste.keys():
@@ -15,6 +15,7 @@ def vetorinf(matriz_teste, KEY):
     return aux, Y
 
 def probs(matriz_treinamento , aux, Y):
+    """5. construção das probabilidades /precisa de uma limpeza de cósigo"""
     cont_ocorrencias = {}
     cont_ocY = {}
     cont_intersecao={}
@@ -69,7 +70,7 @@ def probs(matriz_treinamento , aux, Y):
     return cont_ocY, prob_aposteriori, auxY, prob_aprioriY
 
 def naivebayes(cont_ocY, prob_aposteriori, auxY, prob_aprioriY):
-    #print(cont_ocY)
+    """6. o naive bayes de fato"""
     import cmath 
     aux = {}
     keysap = list(prob_aposteriori.keys())
@@ -84,5 +85,6 @@ def naivebayes(cont_ocY, prob_aposteriori, auxY, prob_aprioriY):
         prob_naiveY[i]= log(prob_aprioriY[i],10) + aux[i]
         prob_naiveY[i] = prob_naiveY[i].real
     
-    print(max(prob_naiveY, key=prob_naiveY.get))
+    maxkey=max(prob_naiveY, key=prob_naiveY.get)
+    return maxkey
 

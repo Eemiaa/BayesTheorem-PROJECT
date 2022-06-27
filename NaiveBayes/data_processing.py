@@ -1,7 +1,8 @@
 import csv
 
-"""leitura do arquivo csv"""
+
 def leitura(treinamento): 
+    """1. leitura do arquivo csv"""
     #abrir arquivo
     with open(treinamento, encoding='utf-8') as aqr_treinamento:
         #ler tabela
@@ -21,6 +22,7 @@ def leitura(treinamento):
         return aux_teste, aux_treino
 
 def tratamento(aux_mt):
+    """2. tratamento dos dados do csv"""
     matriz={}
     for coluna in range(len(aux_mt[0])):
             matriz[aux_mt[0][coluna]]=[]
@@ -32,8 +34,20 @@ def tratamento(aux_mt):
     return matriz    
 
 def construcao(treinamento):
+    """3. construção das matrizes"""
     from datas import matrices as mt
     aux_teste, aux_treino = leitura(treinamento)
     mt.matriz_treinamento = tratamento(aux_treino)
     mt.matriz_teste = tratamento(aux_teste)
     return mt.matriz_treinamento, mt.matriz_teste
+
+def insercao(maxkey, aux, Y):
+    from datas import matrices as mt
+    """7. atualização da matriz de treinamento com a linha da matriz de teste (agora com o resultado de Y)"""
+    for i in aux.keys():
+        if(i != Y):   
+            mt.matriz_treinamento[i].append(aux[i])
+        else:
+            mt.matriz_treinamento[i].append(maxkey)
+
+    
